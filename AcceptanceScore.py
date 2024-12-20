@@ -28,7 +28,7 @@ def rank_compute_acc(rank_vector,val_to_rank):
     return rank_val
 
 ####### Acceptance Score
-def acceptance_score(dgbqa,e_prime,G,normalizer=False):
+def acceptance_score(dgbqa,e_prime,G,normalizer=False, relevance=False):
  
     """
     Function to compute Acceptance Score: Sum over all Gestures(Relevance/Rank Deviation)
@@ -37,7 +37,8 @@ def acceptance_score(dgbqa,e_prime,G,normalizer=False):
     1) dgbqa: Array of unranked but normalized DGBQA score values
     2) e_prime: Array of unranked but normalized (1 - EER) values
     3) G: Total number of gestures considered for analysis
-    3) normalizer: If True, Ar for e_prime will be computed. Default value = False 
+    3) normalizer: If True, Ar for e_prime will be computed. Default value = False
+    4) relevance: If True, relevance value is reuturned. Default value = False 
 
     OUTPUTS:-
     1) Ar: Acceptance Score: Sum over all Gestures(Relevance/Rank Deviation)
@@ -70,22 +71,29 @@ def acceptance_score(dgbqa,e_prime,G,normalizer=False):
         ##### Ar Estimation
         for r_e_j, dgbqa_r_e_j in enumerate(dgbqa_re): # Iterating over all the gestures in the set
 
-            #### Relevance Gain
-            R_j = gamma*((G-(r_e_j+1)+1)/G)*dgbqa_r_e_j + ((r_e_j+1)/G)*(1 - dgbqa_r_e_j)
-            R_j = 2**(lambda_scale*R_j)
+            if(relevance == False):
 
-            #### Rank Deviation Penalty
-            ### Rank Computation
-            rank_dgbqa = rank_compute_acc(np.array(dgbqa_sort),dgbqa_r_e_j) # Rank Derived as per DGBQA-Score Estimates
-            rank_e_prime = rank_compute_acc(np.array(dgbqa_re),dgbqa_r_e_j) # Rank Derived as per e-prime-sort based sorting of DGBQA-Scores
+                #### Relevance Gain
+                R_j = gamma*((G-(r_e_j+1)+1)/G)*dgbqa_r_e_j + ((r_e_j+1)/G)*(1 - dgbqa_r_e_j)
+                R_j = 2**(lambda_scale*R_j)
 
-            ### Rank Deviation
-            rank_dev_j = np.exp(kappa*np.abs(rank_dgbqa - rank_e_prime)) 
+                #### Rank Deviation Penalty
+                ### Rank Computation
+                rank_dgbqa = rank_compute_acc(np.array(dgbqa_sort),dgbqa_r_e_j) # Rank Derived as per DGBQA-Score Estimates
+                rank_e_prime = rank_compute_acc(np.array(dgbqa_re),dgbqa_r_e_j) # Rank Derived as per e-prime-sort based sorting of DGBQA-Scores
 
-            #### Ar Estimate for the Current Gesture
-            Ar_j = R_j/rank_dev_j
-            Ar = Ar + Ar_j # Adding this to the Metric
-            #print(r_e_j,R_j,np.abs(rank_dgbqa - rank_e_prime),rank_dev_j,Ar_j)
+                ### Rank Deviation
+                rank_dev_j = np.exp(kappa*np.abs(rank_dgbqa - rank_e_prime)) 
+
+                #### Ar Estimate for the Current Gesture
+                Ar_j = R_j/rank_dev_j
+                Ar = Ar + Ar_j # Adding this to the Metric
+                #print(r_e_j,R_j,np.abs(rank_dgbqa - rank_e_prime),rank_dev_j,Ar_j)
+
+            else:
+
+                R_j = gamma*((G-(r_e_j+1)+1)/G)*dgbqa_r_e_j + ((r_e_j+1)/G)*(1 - dgbqa_r_e_j)
+                Ar = Ar + R_j # Adding this to the Metric
 
         return Ar
      

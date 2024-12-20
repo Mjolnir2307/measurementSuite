@@ -101,8 +101,6 @@ e_prime = e_prime/np.linalg.norm(e_prime)
 
 ####### CGID and Decorr-CGID Score
 C_I, C_D = CGID_Score_Calculator(Test_Embeddings,y_dev)
-print('CGID Score: '+str(round(C_I,3)))              
-print('CGID Score Decorrelated: '+str(round(C_D,3)))
 
 ##################################################################################################################
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
@@ -117,9 +115,9 @@ alpha = 2
 nu = 1
 rank_dev = avg_rank_deviation(e,dgbqa_score,num_gestures)
 Ar = acceptance_score(dgbqa_score,e_prime,11)
-relevance = acceptance_score(dgbqa_score,e_prime,11,True)
+relevance = acceptance_score(dgbqa_score,e_prime,11,relevance=True)
 d = pattern_match_dist(dgbqa_score,e_prime,11)
-d_metric = (np.log2(2+nu*d)**(1/alpha))
+d_metric = (np.log2(2+nu*d)**(-1/alpha))
 O_prime = np.exp(-beta*C_D) # Orthogonal Penalty
 Ar_star = Ar*d_metric
 Ar_star_plusplus = Ar_star*O_prime
@@ -127,6 +125,7 @@ Ar_max = acceptance_score(dgbqa_score,e_prime,11,normalizer=True)
 nAr = Ar/Ar_max
 nAr_star = Ar_star/Ar_max
 nAr_star_plusplus = Ar_star_plusplus/Ar_max
+Ar_comp = acceptance_score_comp(dgbqa_score,e_prime,11)*d_metric
 
 print('Rank Deviation: '+str(rank_dev))
 print('Relevance: '+str(relevance))
@@ -134,19 +133,11 @@ print('Ar: '+str(Ar))
 print('d: '+str(d))
 print('d_metric: '+str(d_metric))
 print('O_prime: '+str(O_prime))
+print('CGID Score: '+str(round(C_I,3)))              
+print('CGID Score Decorrelated: '+str(round(C_D,3)))
 print('Ar_star(Ar*d_metric): '+str(Ar_star))
 print('Ar_star_++(Ar*d_metric*O_prime): '+str(Ar_star_plusplus))
 print('Ar_max: '+str(Ar_max))
 print('nAr: '+str(nAr))
 print('nAr_star_++: '+str(nAr_star_plusplus))
-
-###### Ranking
-##### DGBQA-Score
-rank_dev = avg_rank_deviation(e,dgbqa_score,num_gestures)
-d = pattern_match_dist(dgbqa_score,e_prime,11)
-d_metric = (np.log2(2+nu*d)**(-1/alpha))
-Ar_star = acceptance_score_comp(dgbqa_score,e_prime,11)*d_metric
-print('======================================')
-print('DGBQA-Score')
-print(dgbqa_score)
-print('Rank-Deviation: '+str(rank_dev)+' d: '+str(d)+' Ar_star: '+str(Ar_star))
+print('Ar_comp: '+str(Ar_comp))
