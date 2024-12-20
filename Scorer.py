@@ -179,6 +179,7 @@ alpha = 2
 nu = 1
 rank_dev = avg_rank_deviation(e,dgbqa_score,num_gestures)
 Ar = acceptance_score(dgbqa_score,e_prime,11)
+relevance = acceptance_score(dgbqa_score,e_prime,11,True)
 d = pattern_match_dist(dgbqa_score,e_prime,11)
 d_metric = (np.log2(2+nu*d)**(1/alpha))
 O_prime = np.exp(-beta*C_D) # Orthogonal Penalty
@@ -189,6 +190,7 @@ nAr = Ar/Ar_max
 nAr_star = Ar_star/Ar_max
 nAr_star_plusplus = Ar_star_plusplus/Ar_max
 
+print('Relevance: '+str(relevance))
 print('Rank Deviation: '+str(rank_dev))
 print('Ar: '+str(Ar))
 print('d: '+str(d))
