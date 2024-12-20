@@ -35,9 +35,6 @@ gesture_list = ['Pinch index','Palm tilt','Finger Slider','Pinch pinky','Slow Sw
 num_subjects = 10
 num_gestures = 11
 dgbqa_score = []
-d_c_star = []
-d_cs = []
-dgbqa_score_wo = []
 Test_Embeddings = np.load('./Embeddings/'+str(args.exp_name)+'.npz')['arr_0']
 y_dev = np.load('./Embeddings/y_dev_DeltaDistance_SOLI.npz')['arr_0']
 y_dev_id = np.load('./Embeddings/y_dev_id_DeltaDistance_SOLI.npz')['arr_0']
@@ -47,38 +44,11 @@ for g_id, gesture_curr in enumerate(gesture_list):
     print('==============================================')
     dgbqa_score_curr, d_c_star_curr, d_cs_curr, dgbqa_score_wo_curr = gbqa_delta_dist_compute(Test_Embeddings,g_id,num_subjects,y_dev,y_dev_id)
     dgbqa_score.append(dgbqa_score_curr)
-    d_c_star.append(d_c_star_curr)
-    d_cs.append(d_cs_curr)
-    dgbqa_score_wo.append(dgbqa_score_wo_curr)
     print('GBQA Delta Distance for '+str(gesture_curr)+' = '+str(dgbqa_score_curr))  
 
 dgbqa_score = np.array(dgbqa_score) # Array Formation
 dgbqa_score = (dgbqa_score - np.mean(dgbqa_score))/np.std(dgbqa_score) # Mean Normalization
 dgbqa_score = dgbqa_score/np.linalg.norm(dgbqa_score) # L2-Normalization
-
-d_c_star = np.array(d_c_star) # Array Formation
-d_c_star = (d_c_star - np.mean(d_c_star))/np.std(d_c_star) # Mean Normalization
-d_c_star = d_c_star/np.linalg.norm(d_c_star) # L2-Normalization
-
-d_cs = np.array(d_cs) # Array Formation
-d_cs = (d_cs - np.mean(d_cs))/np.std(d_cs) # Mean Normalization
-d_cs = d_cs/np.linalg.norm(d_cs) # L2-Normalization
-
-dgbqa_score_wo = np.array(dgbqa_score_wo) # Array Formation
-dgbqa_score_wo = (dgbqa_score_wo - np.mean(dgbqa_score_wo))/np.std(dgbqa_score_wo) # Mean Normalization
-dgbqa_score_wo = dgbqa_score_wo/np.linalg.norm(dgbqa_score_wo) # L2-Normalization
-
-##### Delta Distance
-delta_distance = []
-for g_id, gesture_curr in enumerate(gesture_list):
-    print('==============================================')
-    delta_dist_g = delta_dist_compute(Test_Embeddings,g_id,num_subjects,y_dev,y_dev_id)
-    delta_distance.append(delta_dist_g)
-    print('Delta Distance for '+str(gesture_curr)+' = '+str(delta_dist_g))
-
-delta_distance = np.array(delta_distance) # Array Formation
-delta_distance = (delta_distance - np.mean(delta_distance))/np.std(delta_distance) # Mean Normalization
-delta_distance = delta_distance/np.linalg.norm(delta_distance) # L2-Normalization
 
 ##################################################################################################################
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
