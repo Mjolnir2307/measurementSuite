@@ -28,7 +28,7 @@ def rank_compute_acc(rank_vector,val_to_rank):
     return rank_val
 
 ####### Acceptance Score
-def acceptance_score(dgbqa,e_prime,G,normalizer=False, relevance=False):
+def acceptance_score(dgbqa,e_prime,G,normalizer=False, relevance=False, lambda_scale=2, gamma=2, kappa=1):
  
     """
     Function to compute Acceptance Score: Sum over all Gestures(Relevance/Rank Deviation)
@@ -50,9 +50,9 @@ def acceptance_score(dgbqa,e_prime,G,normalizer=False, relevance=False):
     dgbqa_re = [] # DGBQA-Scores Ordered as per the e_prime_sort  
     arrangement_idx = [] # List to store arrangement orders of e_prime, with the values starting from 0, and ending at G-1
     Ar = 0 # Initializing Acceptance Value as zero
-    lambda_scale = 2 # Scaling factor for relevance
-    gamma = 2 # Scaling Factor for the first term in relevance formulation
-    kappa = 1  # Scaling Factor for the Rank-Deviation Penalty
+    #lambda_scale = 2 # Scaling factor for relevance
+    #gamma = 2 # Scaling Factor for the first term in relevance formulation
+    #kappa = 1  # Scaling Factor for the Rank-Deviation Penalty
 
     if(normalizer == False): # Checking if the Ar is being estimated for the normalizer or not
 
