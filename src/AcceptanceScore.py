@@ -28,7 +28,11 @@ def rank_compute_acc(rank_vector,val_to_rank):
     return rank_val
 
 ####### Acceptance Score
-def acceptance_score(dgbqa,e_prime,G,normalizer=False, relevance=False, lambda_scale=2, gamma=2, kappa=1):
+def acceptance_score(dgbqa,e_prime,G,normalizer=False, 
+                     relevance=False, 
+                     lambda_scale=2,
+                     kappa=1,
+                     gamma=2):
  
     """
     Function to compute Acceptance Score: Sum over all Gestures(Relevance/Rank Deviation)
