@@ -190,7 +190,7 @@ nAr = Ar/Ar_max
 nAr_star = Ar_star/Ar_max
 nAr_star_plusplus = Ar_star_plusplus/Ar_max
 
-print('Relevance: '+str(relevance))
+print('Relevance term: '+str(relevance))
 print('Rank Deviation: '+str(rank_dev))
 print('Ar: '+str(Ar))
 print('d: '+str(d))
