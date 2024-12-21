@@ -76,7 +76,7 @@ def plot_surface(nar_val):
     ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
 
     ax.view_init(elev=17., azim=30) 
-    ax.set_zlim(0.05,0.55)
+    ax.set_zlim(0.05,0.65)
     plt.show()
 
 ###### Defining essentials
@@ -112,18 +112,11 @@ Y_scatter = np.array([0.5,1.0,1.5,0.5,1.0,1.5,0.5,1.0,1.5])
 #                    nu=1))
 
 ###### Plotting
-fig, ((ax11, ax12, ax13, ax14, ax15, ax16), 
-      (ax21, ax22, ax23, ax24, ax25, ax26),
-      (ax31, ax32, ax33, ax34, ax35, ax36),
-      (ax41, ax42, ax43, ax44, ax45, ax46)) = plt.subplots(nrows=4, ncols=6, figsize=(18,16))
+fig, (ax11, ax12, ax13, ax14, ax15, ax16) = plt.subplots(nrows=1, ncols=6, figsize=(18,6), subplot_kw=dict(projection='3d'))
 
-for ax in [ax11, ax12, ax13, ax14, ax15, ax16,
-           ax21, ax22, ax23, ax24, ax25, ax26,
-           ax31, ax32, ax33, ax34, ax35, ax36,
-           ax41, ax42, ax43, ax44, ax45, ax46]:
+for ax in [ax11, ax12, ax13, ax14, ax15, ax16]:
     
     ##### Kappa
-    
     #### K=1/4
     if(ax==ax11):
         nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
@@ -132,53 +125,164 @@ for ax in [ax11, ax12, ax13, ax14, ax15, ax16,
                      alpha=2,
                      beta=0.75,
                      lambda_scale=2,
-                     kappa=1/4,
-                    nu=1)
+                     kappa=1,
+                    nu=0.25)
         Z = np.array(nar_val).reshape(X.shape)
         ax.plot_wireframe(Y,X,Z,
                     lw=2.0)
         ax.plot_surface(Y,X,Z,alpha=0.3)
         ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
-        Z = np.array(nar_val)
-        ax.scatter(X,Y,Z,
-                s=200,
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
                 color='black',
                 edgecolors='k',
                 marker='h')
         ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
         ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
         ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
-
+        ax.set_title('(d.i) $\\nu=0.25$',fontsize=14)
         ax.view_init(elev=17., azim=30) 
-        ax.set_zlim(0.05,0.55)
+        ax.set_zlim(0.05,0.65)
 
     #### K=1/2
-    if(ax==ax11):
+    if(ax==ax12):
         nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
                      eer_values,
                      11,10,
                      alpha=2,
                      beta=0.75,
                      lambda_scale=2,
-                     kappa=1/2,
-                    nu=1)
+                     kappa=1,
+                    nu=0.50)
         Z = np.array(nar_val).reshape(X.shape)
         ax.plot_wireframe(Y,X,Z,
                     lw=2.0)
         ax.plot_surface(Y,X,Z,alpha=0.3)
         ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
-        Z = np.array(nar_val)
-        ax.scatter(X,Y,Z,
-                s=200,
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
                 color='black',
                 edgecolors='k',
                 marker='h')
         ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
         ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
         ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
-
+        ax.set_title('(d.ii) $\\nu=0.50$',fontsize=14)
         ax.view_init(elev=17., azim=30) 
-        ax.set_zlim(0.05,0.55)
+        ax.set_zlim(0.05,0.65)
 
+    #### K=3/4
+    if(ax==ax13):
+        nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
+                     eer_values,
+                     11,10,
+                     alpha=2,
+                     beta=0.75,
+                     lambda_scale=2,
+                     kappa=1,
+                    nu=0.75)
+        Z = np.array(nar_val).reshape(X.shape)
+        ax.plot_wireframe(Y,X,Z,
+                    lw=2.0)
+        ax.plot_surface(Y,X,Z,alpha=0.3)
+        ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
+                color='black',
+                edgecolors='k',
+                marker='h')
+        ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
+        ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
+        ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
+        ax.set_title('(d.iii) $\\nu=0.75$',fontsize=14)
+        ax.view_init(elev=17., azim=30) 
+        ax.set_zlim(0.05,0.65)
 
+    #### K=1
+    if(ax==ax14):
+        nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
+                     eer_values,
+                     11,10,
+                     alpha=2,
+                     beta=0.75,
+                     lambda_scale=2,
+                     kappa=1,
+                    nu=1.00)
+        Z = np.array(nar_val).reshape(X.shape)
+        ax.plot_wireframe(Y,X,Z,
+                    lw=2.0)
+        ax.plot_surface(Y,X,Z,alpha=0.3)
+        ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
+                color='black',
+                edgecolors='k',
+                marker='h')
+        ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
+        ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
+        ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
+        ax.set_title('(d.iv) $\\nu=1.00$',fontsize=14)
+        ax.view_init(elev=17., azim=30) 
+        ax.set_zlim(0.05,0.65)
 
+    #### K=2
+    if(ax==ax15):
+        nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
+                     eer_values,
+                     11,10,
+                     alpha=2,
+                     beta=0.75,
+                     lambda_scale=2,
+                     kappa=1,
+                    nu=2.00)
+        Z = np.array(nar_val).reshape(X.shape)
+        ax.plot_wireframe(Y,X,Z,
+                    lw=2.0)
+        ax.plot_surface(Y,X,Z,alpha=0.3)
+        ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
+                color='black',
+                edgecolors='k',
+                marker='h')
+        ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
+        ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
+        ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
+        ax.set_title('(d.v) $\\nu=2.00$',fontsize=14)
+        ax.view_init(elev=17., azim=30) 
+        ax.set_zlim(0.05,0.65)
+
+    #### K=4
+    if(ax==ax16):
+        nar_val = get_nar(embedding_list,y_dev_path,y_dev_id_path,
+                     eer_values,
+                     11,10,
+                     alpha=2,
+                     beta=0.75,
+                     lambda_scale=2,
+                     kappa=1,
+                    nu=4.00)
+        Z = np.array(nar_val).reshape(X.shape)
+        ax.plot_wireframe(Y,X,Z,
+                    lw=2.0)
+        ax.plot_surface(Y,X,Z,alpha=0.3)
+        ax.contourf(Y, X, Z, zdir='z', offset=0.05, cmap='Blues')
+        Z_scatter = np.array(nar_val)
+        ax.scatter(X_scatter,Y_scatter,Z_scatter,
+                s=100,
+                color='black',
+                edgecolors='k',
+                marker='h')
+        ax.set_zlabel('$nAr^{*}(\Delta)$',fontsize=12)
+        ax.set_xlabel('$\lambda_{ID}$',fontsize=12) 
+        ax.set_ylabel('$\lambda_{ICGD}$',fontsize=12)
+        ax.set_title('(d.vi) $\\nu=4.00$',fontsize=14)
+        ax.view_init(elev=17., azim=30) 
+        ax.set_zlim(0.05,0.65)
+
+plt.show()
