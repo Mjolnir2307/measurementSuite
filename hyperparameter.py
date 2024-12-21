@@ -44,23 +44,23 @@ def compute_acceptance(embeddings,
     Ar = acceptance_score(dgbqa_score,
                           e_prime,
                           G_total,
+                          False,
+                          False,
                           lambda_scale,
-                          kappa,
-                          gamma=2
+                          kappa
                           )
     d = pattern_match_dist(dgbqa_score,e_prime,G_total)
     d_metric = (np.log2(2+nu*d)**(-1/alpha))
     C_I, C_D = CGID_Score_Calculator(embeddings,y_dev)
     O_prime = np.exp(-beta*C_D)
-
     Ar_star = Ar*d_metric*O_prime
     Ar_max = acceptance_score(dgbqa_score,
                               e_prime,
                               G_total,
+                              True,
+                              False,
                               lambda_scale,
-                              kappa,
-                              gamma=2,
-                              normalizer=True
+                              kappa
                               )
     
     nAr_star = Ar_star/Ar_max

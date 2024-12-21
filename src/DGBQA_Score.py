@@ -94,8 +94,8 @@ def gbqa_delta_dist_compute(embeddings,g_id,num_subjects,y_dev,y_dev_id):
     d_c_star = np.average(dist_inter)
 
     ###### Computing GBQA Distance Delta Score
-    print('Inter-Distance - d_c_star: '+str(d_c_star))
-    print('Intra-Distance - d_cs_avg: '+str(d_cs_avg))
+    #print('Inter-Distance - d_c_star: '+str(d_c_star))
+    #print('Intra-Distance - d_cs_avg: '+str(d_cs_avg))
     #gbqa_delta_distance = math.exp(d_c_star - d_cs_avg)
     #gbqa_delta_distance = math.exp(d_c_star - d_cs_avg) + 5*((d_c_star/d_cs_avg))
     dgbqa_score = math.exp(d_c_star - d_cs_avg) - (1.0*(d_cs_avg/d_c_star)) # For Seen Identities
