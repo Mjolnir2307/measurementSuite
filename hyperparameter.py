@@ -65,3 +65,38 @@ def compute_acceptance(embeddings,
     
     nAr_star = Ar_star/Ar_max
     return nAr_star
+
+def get_nar(embedding_list,
+                 y_dev_path, 
+                 y_dev_id_path, 
+                 eer_values, 
+                 G_total,
+                 I_total,
+                 alpha,
+                 beta,
+                 lambda_scale,
+                 kappa,
+                 nu):
+    
+    """
+    Function to plot surface plot wrt lambda values 
+    """
+
+    y_dev = np.load(y_dev_path)['arr_0']
+    y_dev_id = np.load(y_dev_id_path)['arr_0']
+    nar_value = []
+
+    for embedding_path in embedding_list:
+        embedding = np.load(embedding_path)['arr_0']
+        nar_value.append(compute_acceptance(embedding,
+                                            y_dev,
+                                            y_dev_id,
+                                            eer_values,
+                                            G_total,
+                                            I_total,
+                                            alpha,
+                                            beta,
+                                            lambda_scale,
+                                            kappa,
+                                            nu))
+    return np.array(nar_value)
