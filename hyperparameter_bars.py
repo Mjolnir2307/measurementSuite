@@ -5,7 +5,7 @@ from hyperparameter import get_nar
 
 ####### Testing
 embedding_list = ['./Embeddings/DGBQA_CGID_Res3D-ViViT_1pt5-pt5_SOLI.npz',
-                  './Embeddings/DGBQA_CGID_MF_1pt5-pt5_SOLI.npz'
+                  './Embeddings/DGBQA_CGID_Res3D-MF_1pt5-pt5_SOLI.npz',
                   './Embeddings/MS_TPN_pt5-pt5_SOLI.npz',
                   './Embeddings/MS_TAM_1-pt5_SOLI.npz',
                   './Embeddings/MS_MViT_pt5-1_SOLI.npz']
@@ -30,11 +30,12 @@ for hyp_val_curr in hyp_val:
     
 nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-plt.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=4,linestyle='dashdot')
-plt.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=4,linestyle='dashdot')
-plt.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=4,linestyle='dashdot')
-plt.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=4,linestyle='dashdot')
-plt.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=4,linestyle='dashdot')
+plt.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=10)
+plt.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=10)
+plt.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=10)
+plt.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=10)
+plt.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=10)
+plt.legend()
 plt.show()
 
 ####### Curve Plotting

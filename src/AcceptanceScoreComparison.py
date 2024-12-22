@@ -3,7 +3,7 @@ import os
 import gc
 import math
 import numpy as np
-from AcceptanceScore import rank_compute_acc
+from src.AcceptanceScore import rank_compute_acc
 
 def acceptance_score_comp(dgbqa,e_prime,G):
  
