@@ -23,7 +23,7 @@ args = parser.parse_args()
 ####### Score estimation
 
 ##### Defining Essentials
-gesture_list = ['Compass','Piano','Push','Flipping Fist']
+gesture_list = ['Compass','Piano','Push','Flipping fist']
 num_subjects = 16
 num_gestures = 4
 dgbqa_score = []

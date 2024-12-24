@@ -23,7 +23,7 @@ args = parser.parse_args()
 ####### Score estimation
 
 ##### Defining Essentials
-gesture_list = ['Pinch index','Palm tilt','Finger Slider','Pinch pinky','Slow Swipe','Fast Swipe','Push','Pull','Finger rub','Circle','Palm hold']
+gesture_list = ['Pinch index','Palm tilt','Finger slider','Pinch pinky','Slow swipe','Fast swipe','Push','Pull','Finger rub','Circle','Palm hold']
 num_subjects = 26
 num_gestures = 11
 dgbqa_score = []
