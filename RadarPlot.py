@@ -201,3 +201,66 @@ def radar_factory(num_vars, frame='circle'):
 
     register_projection(RadarAxes)
     return theta
+
+###### Testing
+eer_values = np.array([15.60,14.33,8.98,14.33,4.83,4.74,7.13,7.60,8.15,5.94,18.63])
+embedding_list = ['./Embeddings/DGBQA_CGID_Res3D-ViViT_1pt5-pt5_SOLI.npz',
+                  './Embeddings/DGBQA_CGID_Res3D-MF_1pt5-pt5_SOLI.npz',
+                  './Embeddings/MS_TPN_pt5-pt5_SOLI.npz',
+                  './Embeddings/MS_TAM_1-pt5_SOLI.npz',
+                  './Embeddings/MS_MViT_pt5-1_SOLI.npz']
+
+embedding_curr = np.load('./Embeddings/DGBQA_CGID_Res3D-ViViT_1pt5-pt5_SOLI.npz',allow_pickle=True)['arr_0']
+y_dev_path = './Embeddings/y_dev_DeltaDistance_SOLI.npz'
+y_dev_id_path = './Embeddings/y_dev_id_DeltaDistance_SOLI.npz'
+y_dev = np.load(y_dev_path,allow_pickle=True)['arr_0']
+y_dev_id = np.load(y_dev_id_path,allow_pickle=True)['arr_0']
+val = get_val(embedding_curr,
+              y_dev,
+              y_dev_id,
+              eer_values,
+              11,
+              10,
+              2,
+              0.75,
+              2,
+              1,
+              1)
+print(val)
+
+nar_values = get_measures(embedding_list,
+                y_dev_path,
+                y_dev_id_path,
+                eer_values,
+                11,
+                10,
+                alpha=2,
+                beta=0.75,
+                lambda_scale=2,
+                kappa=1,
+                nu=1)
+print(nar_values)
+
+nar_values[:,0] = nar_values[:,0]/np.linalg.norm(nar_values[:,0])
+nar_values[:,1] = nar_values[:,1]/np.linalg.norm(nar_values[:,1])
+nar_values[:,2] = nar_values[:,2]/np.linalg.norm(nar_values[:,2])
+nar_values[:,3] = nar_values[:,3]/np.linalg.norm(nar_values[:,3])
+
+N = 4
+theta = radar_factory(N, frame='polygon')
+data = [['Rank deviation','Relevance','Trend deviation','Entanglement'],
+        nar_values[0,:-1],
+        nar_values[1,:-1],
+        nar_values[2,:-1],
+        nar_values[3,:-1],
+        nar_values[4,:-1]]
+colors = ['b', 'r', 'g', 'm', 'y']
+spoke_labels = data.pop(0)
+
+fig, ax = plt.subplots(figsize=(6, 6), nrows=1, ncols=1,
+                        subplot_kw=dict(projection='radar'))
+for d, color in zip(data, colors):
+    ax.plot(theta,d,color=color)
+    ax.fill(theta, d, facecolor=color, alpha=0.25, label='_nolegend_')
+ax.set_varlabels(spoke_labels)
+plt.show()
