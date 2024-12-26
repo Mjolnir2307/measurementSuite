@@ -196,7 +196,6 @@ def select_model(embedding_list,
         measure_val.append(val_curr)
 
     ##### Optimal selection
-    print(measure_val)
     if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*']):
         opt_model = embedding_list[int(np.argmax(measure_val))]
     else:
@@ -205,23 +204,23 @@ def select_model(embedding_list,
     return opt_model
 
 ###### Testing
-opt_model = select_model(embedding_list=['./Embeddings/MS_MViT_pt5-pt5_SOLI.npz',
-                                         './Embeddings/MS_MViT_pt5-1_SOLI.npz',
-                                         './Embeddings/MS_MViT_pt5-1pt5_SOLI.npz',
-                                         './Embeddings/MS_MViT_1-pt5_SOLI.npz',
-                                         './Embeddings/MS_MViT_1-1_SOLI.npz',
-                                         './Embeddings/MS_MViT_1-1pt5_SOLI.npz',
-                                         './Embeddings/MS_MViT_1pt5-pt5_SOLI.npz',
-                                         './Embeddings/MS_MViT_1pt5-1_SOLI.npz',
-                                         './Embeddings/MS_MViT_1pt5-1pt5_SOLI.npz',],
-                        dataset_list=['Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli',
-                                      'Soli'],
-                        var='R')
-print(opt_model)
+#opt_model = select_model(embedding_list=['./Embeddings/MS_MViT_pt5-pt5_SOLI.npz',
+#                                         './Embeddings/MS_MViT_pt5-1_SOLI.npz',
+#                                         './Embeddings/MS_MViT_pt5-1pt5_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1-pt5_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1-1_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1-1pt5_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1pt5-pt5_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1pt5-1_SOLI.npz',
+#                                         './Embeddings/MS_MViT_1pt5-1pt5_SOLI.npz',],
+#                        dataset_list=['Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli',
+#                                      'Soli'],
+#                        var='R')
+#print(opt_model)

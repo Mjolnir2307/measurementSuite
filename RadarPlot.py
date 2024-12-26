@@ -230,7 +230,7 @@ def get_data(embedding_list,
                 nu)
     
     nar_values[:,0] = nar_values[:,0]/np.linalg.norm(nar_values[:,0])
-    nar_values[:,1] = nar_values[:,1]/np.linalg.norm(nar_values[:,1])
+    nar_values[:,1] = 4**(nar_values[:,1])/np.linalg.norm(4**(nar_values[:,1]))
     nar_values[:,2] = nar_values[:,2]/np.linalg.norm(nar_values[:,2])
     nar_values[:,3] = nar_values[:,3]/np.linalg.norm(nar_values[:,3])
     
@@ -242,43 +242,43 @@ def get_data(embedding_list,
     return data
 
 ###### Testing
-eer_values = np.array([15.60,14.33,8.98,14.33,4.83,4.74,7.13,7.60,8.15,5.94,18.63])
-embedding_list = ['./Embeddings/DGBQA_CGID_Res3D-ViViT_1pt5-pt5_SOLI.npz',
-                  './Embeddings/DGBQA_CGID_Res3D-MF_1pt5-pt5_SOLI.npz',
-                  './Embeddings/MS_TPN_pt5-pt5_SOLI.npz',
-                  './Embeddings/MS_TAM_1-pt5_SOLI.npz',
-                  './Embeddings/MS_MViT_pt5-1_SOLI.npz']
-y_dev_path = './Embeddings/y_dev_DeltaDistance_SOLI.npz'
-y_dev_id_path = './Embeddings/y_dev_id_DeltaDistance_SOLI.npz'
+#eer_values = np.array([15.60,14.33,8.98,14.33,4.83,4.74,7.13,7.60,8.15,5.94,18.63])
+#embedding_list = ['./Embeddings/DGBQA_CGID_Res3D-ViViT_1pt5-pt5_SOLI.npz',
+#                  './Embeddings/DGBQA_CGID_Res3D-MF_1pt5-pt5_SOLI.npz',
+#                  './Embeddings/MS_TPN_pt5-pt5_SOLI.npz',
+#                  './Embeddings/MS_TAM_1-pt5_SOLI.npz',
+#                  './Embeddings/MS_MViT_pt5-1_SOLI.npz']
+#y_dev_path = './Embeddings/y_dev_DeltaDistance_SOLI.npz'
+#y_dev_id_path = './Embeddings/y_dev_id_DeltaDistance_SOLI.npz'
 
-data = get_data(embedding_list,
-                y_dev_path,
-                y_dev_id_path,
-                eer_values,
-                11,
-                10,
-                alpha=2,
-                beta=0.75,
-                lambda_scale=2,
-                kappa=1,
-                nu=1,
-                num_entries=5)
+#data = get_data(embedding_list,
+#                y_dev_path,
+#                y_dev_id_path,
+#                eer_values,
+#                11,
+#                10,
+#                alpha=2,
+#                beta=0.75,
+#                lambda_scale=2,
+#                kappa=1,
+#                nu=1,
+#                num_entries=5)
 
-N = 4
-theta = radar_factory(N, frame='polygon')
-colors = ['b', 'r', 'g', 'm', 'y']
-spoke_labels = data.pop(0)
+#N = 4
+#theta = radar_factory(N, frame='polygon')
+#colors = ['b', 'r', 'g', 'm', 'y']
+#spoke_labels = data.pop(0)
 
-fig, ax = plt.subplots(figsize=(6, 6), nrows=1, ncols=1,
-                        subplot_kw=dict(projection='radar'))
-for d, color in zip(data, colors):
-    ax.plot(theta,d,color=color)
-    ax.fill(theta, d, facecolor=color, alpha=0.25, label='_nolegend_')
-ax.set_varlabels(spoke_labels)
-ax.set_xlabel('(a) Soli')
+#fig, ax = plt.subplots(figsize=(6, 6), nrows=1, ncols=1,
+#                        subplot_kw=dict(projection='radar'))
+#for d, color in zip(data, colors):
+#    ax.plot(theta,d,color=color)
+#    ax.fill(theta, d, facecolor=color, alpha=0.25, label='_nolegend_')
+#ax.set_varlabels(spoke_labels)
+#ax.set_xlabel('(a) Soli')
 
-labels = ('Res3D-ViViT', 'Res3D-MF', 'Res3D-TPN', 'Res3D-TAM')
-legend = ax.legend(labels, loc=(0.9, .95),
-                              labelspacing=0.1, fontsize='8')
+#labels = ('Res3D-ViViT', 'Res3D-MF', 'Res3D-TPN', 'Res3D-TAM')
+#legend = ax.legend(labels, loc=(0.9, .95),
+#                              labelspacing=0.1, fontsize='8')
 
-plt.show()
+#plt.show()
