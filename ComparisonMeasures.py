@@ -250,6 +250,7 @@ def compute_infAp(dgbqa,e_prime,G):
             for i in range(G-1):
                 if(dgbqa_r_e_j <= dgbqa_re[i]):
                     relevant = relevant + 1
+
             val_curr = (1 + relevant)/G
 
         if(r_e_j > 0 and r_e_j != (G-1)):
@@ -271,9 +272,84 @@ def compute_infAp(dgbqa,e_prime,G):
 
     return val/G
 
+##### Negative relevance
+def compute_NegativeRelevance(dgbqa,e_prime):
+
+    """
+    Function to compute Negative Relevance
+    """
+
+    #### DCG values
+    DCG = compute_DCG(dgbqa,e_prime) # Current DCG
+    DCG_max = compute_DCG(e_prime,e_prime) # Maximum DCG
+
+    #### Defining Essentials
+    e_prime_sort = (np.sort(e_prime)) # Sorted e_prime
+    dgbqa_re = [] # DGBQA-Scores Ordered as per the e_prime_sort  
+    arrangement_idx = [] # List to store arrangement orders of e_prime, with the values starting from 0, and ending at G-1
+
+    #### Aranging DGBQA Scores as per e_prime's order
+    for idx, val in enumerate(e_prime_sort):
+
+        for idx_search, val_search in enumerate(e_prime):
+
+            if(val == val_search):
+                arrangement_idx.append(idx_search) # Finding Index on e_prime that matches with e_prime_sort
+                dgbqa_re.append(dgbqa[idx_search]) # Appending terms in dgbqa_re as per the order in e_prime_sort: The best rank is the first term
+                break
+
+    #### DCG Minimum
+    DCG_min = compute_DCG(np.array(dgbqa_re),np.array(e_prime))
+
+    return (DCG - DCG_min)/(DCG_max - DCG_min)
+
+##### RPP
+def compute_RPP(dgbqa,e_prime,G):
+
+    """
+    Function to compute RPP
+    """
+
+    """
+    Global rank error
+    """
+
+    ##### Defining Essentials
+    e_prime_sort = -(np.sort(-e_prime)) # Sorted e_prime
+    dgbqa_sort = -(np.sort(-dgbqa)) # Sorted DGBQA-Score Values
+    dgbqa_re = [] # DGBQA-Scores Ordered as per the e_prime_sort  
+    arrangement_idx = [] # List to store arrangement orders of e_prime, with the values starting from 0, and ending at G-1
+    val = 0
+
+    #### Aranging DGBQA Scores as per e_prime's order
+    for idx, val in enumerate(e_prime_sort):
+
+        for idx_search, val_search in enumerate(e_prime):
+
+            if(val == val_search):
+                arrangement_idx.append(idx_search) # Finding Index on e_prime that matches with e_prime_sort
+                dgbqa_re.append(dgbqa[idx_search]) # Appending terms in dgbqa_re as per the order in e_prime_sort: The best rank is the first term
+                break
+    
+    #### ERR Estimation
+    for r_e_j, dgbqa_r_e_j in enumerate(dgbqa_re): # Iterating over all the gestures in the set
+
+        ### Rank Deviation Penalty
+        ## Rank Computation
+        rank_dgbqa = rank_compute_acc(np.array(dgbqa_sort),dgbqa_r_e_j) # Rank Derived as per DGBQA-Score Estimates
+        rank_e_prime = rank_compute_acc(np.array(dgbqa_re),dgbqa_r_e_j) # Rank Derived as per e-prime-sort based sorting of DGBQA-Scores
+
+        ## Rank Deviation
+        if(rank_dgbqa == rank_e_prime):
+            val = val + np.sign(dgbqa_r_e_j)*dgbqa_r_e_j
+        else:
+            val = val - np.sign(dgbqa_r_e_j)*(dgbqa_r_e_j)
+
+    return val
+
 ####### Testing
 dgbqa_soli = np.array([-0.32158683, -0.09050297, -0.08070667, -0.29331375,  0.62356868,  0.3819444, -0.05457497, -0.06664492, -0.0551636,   0.33185758, -0.37487694])
 e_prime_soli = np.array([-0.36557992, -0.2823202,   0.06841959, -0.2823202,   0.34048877,  0.34638906, 0.18970344,  0.15889078,  0.12283342,  0.26771845, -0.5642232])
 G_total = 11
-err_val = compute_infAp(dgbqa_soli,e_prime_soli,11)
+err_val = compute_NegativeRelevance(dgbqa_soli,e_prime_soli)
 print(err_val)
