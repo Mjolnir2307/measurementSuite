@@ -8,6 +8,7 @@ from src.ICGDScore import CGID_Score_Calculator
 from src.RankDeviation import avg_rank_deviation
 from src.AcceptanceScore import acceptance_score
 from src.PatternMatchDistance import pattern_match_dist
+from ComparisonMeasures import *
 
 ####### Model selection
 def get_val(embedding,
@@ -96,6 +97,36 @@ def get_val(embedding,
             d = pattern_match_dist(dgbqa_score,e_prime,G_total)
             return acceptance_score(dgbqa_score,e_prime,G_total,False,False)*(np.log2(2+nu*d)**(-1/alpha))*np.exp(-beta*C_D)
         
+        if(measure_req == 'euclid'):
+            return euclidean_distance(dgbqa_score,e_prime)
+        
+        if(measure_req == 'corr'):
+            return correlation(dgbqa_score,e_prime)
+        
+        if(measure_req == 'DCG'):
+            return compute_DCG(dgbqa_score,e_prime)
+        
+        if(measure_req == 'Kendall'):
+            return compute_Kendalls(dgbqa_score,e_prime)
+        
+        if(measure_req == 'ERR'):
+            return compute_ERR(dgbqa_score,e_prime,G_total)
+        
+        if(measure_req == 'U'):
+            return compute_u(dgbqa_score,e_prime,G_total)
+        
+        if(measure_req == 'GRE'):
+            return compute_GRE(dgbqa_score,e_prime,G_total)
+        
+        if(measure_req == 'infAp'):
+            return compute_infAp(dgbqa_score,e_prime,G_total)
+        
+        if(measure_req == 'NegRel'):
+            return compute_NegativeRelevance(dgbqa_score,e_prime)
+        
+        if(measure_req == 'RPP'):
+            return compute_RPP(dgbqa_score,e_prime,G_total)
+        
     if(mode == 'full'): # returns all nine metrics
         nu = 1
         alpha = 2
@@ -122,6 +153,18 @@ def get_val(embedding,
         Ar_psi = Ar*(np.log2(2+nu*d)**(-1/alpha)) # Ar*psi
         Cd_psi = (np.log2(2+nu*d)**(-1/alpha))*np.exp(-beta*C_D) # Cd*psi
         Ar_star = Ar*(np.log2(2+nu*d)**(-1/alpha))* np.exp(-beta*C_D) # Ar*
+
+        euclid = euclidean_distance(dgbqa_score,e_prime) # Euclidean distance
+        corr = correlation(dgbqa_score,e_prime) # Correlation
+        dcg = compute_DCG(dgbqa_score,e_prime) # DCG value
+        kendalls_tau = compute_Kendalls(dgbqa_score,e_prime,G_total) # Kendall's Tau
+        err = compute_ERR(dgbqa_score,e_prime,G_total) # ERR
+        u_measure = compute_u(dgbqa_score,e_prime,G_total) # U-Measure
+        gre = compute_GRE(dgbqa_score,e_prime,G_total) # GRE
+        infAp = compute_infAp(dgbqa_score,e_prime,G_total) # infAp
+        neg_rel = compute_NegativeRelevance(dgbqa_score,e_prime) # Negative relevance
+        rpp = compute_RPP(dgbqa_score,e_prime,G_total) # RPP
+
         return [r,
                 R,
                 d,
@@ -130,7 +173,17 @@ def get_val(embedding,
                 ArCd,
                 Ar_psi,
                 Cd_psi,
-                Ar_star] # List of measures
+                Ar_star,
+                euclid,
+                corr,
+                dcg,
+                kendalls_tau,
+                err,
+                u_measure,
+                gre,
+                infAp,
+                neg_rel,
+                rpp] # List of measures
     
 def select_model(embedding_list,
                  dataset_list,
@@ -196,7 +249,7 @@ def select_model(embedding_list,
         measure_val.append(val_curr)
 
     ##### Optimal selection
-    if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*']):
+    if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*','corr','DCG','ERR','U','infAp','NegRel','RPP']):
         opt_model = embedding_list[int(np.argmax(measure_val))]
     else:
         opt_model = embedding_list[int(np.argmin(measure_val))]
@@ -204,6 +257,18 @@ def select_model(embedding_list,
     return opt_model
 
 ###### Testing
+##### Metric comutation
+#emebdding = np.load('./Embeddings/MS_MViT_pt5-1_SOLI.npz')['arr_0']
+#y_dev = np.load('./Embeddings/y_dev_DeltaDistance_SOLI.npz')['arr_0']
+#y_dev_id = np.load('./Embeddings/y_dev_id_DeltaDistance_SOLI.npz')['arr_0']
+#G_total = 11
+#I_total = 10
+#eer_values = [15.60,14.33,8.98,14.33,4.83,4.74,7.13,7.60,8.15,5.94,18.63]
+#val = get_val(emebdding,y_dev,y_dev_id,eer_values,G_total,I_total,None,'full')
+#val = np.array(val)
+#print(val.shape, val)
+
+##### Model selection
 #opt_model = select_model(embedding_list=['./Embeddings/MS_MViT_pt5-pt5_SOLI.npz',
 #                                         './Embeddings/MS_MViT_pt5-1_SOLI.npz',
 #                                         './Embeddings/MS_MViT_pt5-1pt5_SOLI.npz',
@@ -222,5 +287,5 @@ def select_model(embedding_list,
 #                                      'Soli',
 #                                      'Soli',
 #                                      'Soli'],
-#                        var='R')
+#                        var='GRE')
 #print(opt_model)

@@ -22,7 +22,7 @@ def correlation(dgbqa_score,e_prime):
     Correlation between DGBQA scores and e_prime
     """
 
-    return np.dot(dgbqa_score,e_prime)
+    return np.dot(dgbqa_score,e_prime)/(np.linalg.norm(dgbqa_score)*np.linalg.norm(e_prime))
 
 ##### DCG values
 def compute_DCG(dgbqa,e_prime):
@@ -168,7 +168,7 @@ def compute_u(dgbqa, e_prime, G_total):
     
     #### ERR Estimation
     for r_e_j, dgbqa_r_e_j in enumerate(dgbqa_re): # Iterating over all the gestures in the set
-        val = val + (dgbqa_r_e_j*(np.max([0,1-(r_e_j/G_total)])))
+        val = val + (dgbqa_r_e_j*(np.max([0,1-((r_e_j+1)/G_total)])))
 
     return val
 
@@ -348,8 +348,8 @@ def compute_RPP(dgbqa,e_prime,G):
     return val
 
 ####### Testing
-dgbqa_soli = np.array([-0.32158683, -0.09050297, -0.08070667, -0.29331375,  0.62356868,  0.3819444, -0.05457497, -0.06664492, -0.0551636,   0.33185758, -0.37487694])
-e_prime_soli = np.array([-0.36557992, -0.2823202,   0.06841959, -0.2823202,   0.34048877,  0.34638906, 0.18970344,  0.15889078,  0.12283342,  0.26771845, -0.5642232])
-G_total = 11
-err_val = compute_NegativeRelevance(dgbqa_soli,e_prime_soli)
-print(err_val)
+#dgbqa_soli = np.array([-0.32158683, -0.09050297, -0.08070667, -0.29331375,  0.62356868,  0.3819444, -0.05457497, -0.06664492, -0.0551636,   0.33185758, -0.37487694])
+#e_prime_soli = np.array([-0.36557992, -0.2823202,   0.06841959, -0.2823202,   0.34048877,  0.34638906, 0.18970344,  0.15889078,  0.12283342,  0.26771845, -0.5642232])
+#G_total = 11
+#err_val = correlation(dgbqa_soli,e_prime_soli)
+#print(err_val)
