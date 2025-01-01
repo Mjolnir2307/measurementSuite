@@ -108,7 +108,7 @@ def get_val(embedding,
             return compute_DCG(dgbqa_score,e_prime)
         
         if(measure_req == 'Kendall'):
-            return compute_Kendalls(dgbqa_score,e_prime)
+            return compute_Kendalls(dgbqa_score,e_prime,G_total)
         
         if(measure_req == 'ERR'):
             return compute_ERR(dgbqa_score,e_prime,G_total)
