@@ -2,6 +2,7 @@
 import os
 import argparse
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 from src.DGBQA_Score import gbqa_delta_dist_compute
 from src.ICGDScore import CGID_Score_Calculator
@@ -153,6 +154,7 @@ def get_val(embedding,
         Ar_psi = Ar*(np.log2(2+nu*d)**(-1/alpha)) # Ar*psi
         Cd_psi = (np.log2(2+nu*d)**(-1/alpha))*np.exp(-beta*C_D) # Cd*psi
         Ar_star = Ar*(np.log2(2+nu*d)**(-1/alpha))* np.exp(-beta*C_D) # Ar*
+        Ar_star = Ar_star/(acceptance_score(dgbqa_score,e_prime,G_total,True,False))
 
         euclid = euclidean_distance(dgbqa_score,e_prime) # Euclidean distance
         corr = correlation(dgbqa_score,e_prime) # Correlation
@@ -184,23 +186,22 @@ def get_val(embedding,
                 infAp,
                 neg_rel,
                 rpp] # List of measures
-    
-def select_model(embedding_list,
+
+def get_params(embedding_list,
                  dataset_list,
-                 var,
-                 ):
-    
+                 var):
+
     """
-    Function to get optimal model as per metrics
+    Function to get params
     
     INPUTS:-
     1) embedding_list: The list of embeddings from which the optimal is to be derived
     2) dataset_list: Corresponding list of the dataset
-    3) var: The measure upon which optimal is to be derived
+    3) var: 'full' or a metric
 
     OUPUTS:-
-    1) opt_model: The optimal model/models
-    """
+    1) measure_val: Measurment values
+    """  
 
     measure_val = [] # Value store
 
@@ -238,15 +239,50 @@ def select_model(embedding_list,
             eer_values = list(eer_values)
 
         ##### Measure computation
-        val_curr = get_val(embedding_curr,
-                           y_dev,
-                           y_dev_id,
-                           eer_values,
-                           G_total,
-                           I_total,
-                           var,
-                           'single') # Current value
-        measure_val.append(val_curr)
+        if(var != 'full'):
+            val_curr = get_val(embedding_curr,
+                            y_dev,
+                            y_dev_id,
+                            eer_values,
+                            G_total,
+                            I_total,
+                            var,
+                            'single') # Current value
+            measure_val.append(val_curr)
+
+        if(var == 'full'):
+            val_curr = get_val(embedding_curr,
+                            y_dev,
+                            y_dev_id,
+                            eer_values,
+                            G_total,
+                            I_total,
+                            None,
+                            'full') # Current value
+            measure_val.append(val_curr)
+
+    return measure_val
+    
+def select_model(embedding_list,
+                 dataset_list,
+                 var,
+                 ):
+    
+    """
+    Function to get optimal model as per metrics
+    
+    INPUTS:-
+    1) embedding_list: The list of embeddings from which the optimal is to be derived
+    2) dataset_list: Corresponding list of the dataset
+    3) var: The measure upon which optimal is to be derived
+
+    OUPUTS:-
+    1) opt_model: The optimal model/models
+    """
+    
+    measure_val = get_params(embedding_list,
+                             dataset_list,
+                             var)
 
     ##### Optimal selection
     if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*','corr','DCG','ERR','U','infAp','NegRel','RPP']):
@@ -256,6 +292,29 @@ def select_model(embedding_list,
 
     return opt_model
 
+def make_df(measure_val):
+    df = pd.DataFrame()
+    df['r'] = measure_val[:,0] # rank deviation
+    df['relevance'] = measure_val[:,1] # Relevance
+    df['psi'] = measure_val[:,2] # Pattern match distance
+    df['Cd'] = measure_val[:,3] # ICGD score
+    df['Ar'] = measure_val[:,4] # Acceptance score
+    df['ArCd'] = measure_val[:,5] # ArCd
+    df['Ar_psi'] = measure_val[:,6] # Ar_psi
+    df['Cd_psi'] = measure_val[:,7] # Cd_psi
+    df['Ar_star'] = measure_val[:,8] # Ar_star
+    df['euclid'] = measure_val[:,9] # Euclidean distance
+    df['corr'] = measure_val[:,10] # Correlation
+    df['DCG'] = measure_val[:,11] # DCG
+    df['Kendall'] = measure_val[:,12] # Kendall's Tau
+    df['err'] = measure_val[:,13] # ERR
+    df['U'] = measure_val[:,14] # U-measure
+    df['gre'] = measure_val[:,15] # GRE
+    df['infAp'] = measure_val[:,16] # infAp
+    df['neg_rel'] = measure_val[:,17] # Negative relevance
+    df['rpp'] = measure_val[:,18] # RPP
+    return df
+
 ###### Testing
 ##### Metric comutation
 #emebdding = np.load('./Embeddings/MS_MViT_pt5-1_SOLI.npz')['arr_0']
@@ -264,12 +323,8 @@ def select_model(embedding_list,
 #G_total = 11
 #I_total = 10
 #eer_values = [15.60,14.33,8.98,14.33,4.83,4.74,7.13,7.60,8.15,5.94,18.63]
-#val = get_val(emebdding,y_dev,y_dev_id,eer_values,G_total,I_total,None,'full')
-#val = np.array(val)
-#print(val.shape, val)
-
-##### Model selection
-#opt_model = select_model(embedding_list=['./Embeddings/MS_MViT_pt5-pt5_SOLI.npz',
+#
+#embedding_list = ['./Embeddings/MS_MViT_pt5-pt5_SOLI.npz',
 #                                         './Embeddings/MS_MViT_pt5-1_SOLI.npz',
 #                                         './Embeddings/MS_MViT_pt5-1pt5_SOLI.npz',
 #                                         './Embeddings/MS_MViT_1-pt5_SOLI.npz',
@@ -277,15 +332,21 @@ def select_model(embedding_list,
 #                                         './Embeddings/MS_MViT_1-1pt5_SOLI.npz',
 #                                         './Embeddings/MS_MViT_1pt5-pt5_SOLI.npz',
 #                                         './Embeddings/MS_MViT_1pt5-1_SOLI.npz',
-#                                         './Embeddings/MS_MViT_1pt5-1pt5_SOLI.npz',],
-#                        dataset_list=['Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli',
-#                                      'Soli'],
+#                                         './Embeddings/MS_MViT_1pt5-1pt5_SOLI.npz']
+#dataset_list = ['Soli']*9
+
+#measure_val = get_params(embedding_list,
+#                         dataset_list,
+#                         'full')
+#measure_val = np.array(measure_val)
+#print(measure_val.shape)
+
+#val = get_val(emebdding,y_dev,y_dev_id,eer_values,G_total,I_total,None,'full')
+#val = np.array(val)
+#print(val.shape, val)
+
+##### Model selection
+#opt_model = select_model(embedding_list,
+#                        dataset_list,
 #                        var='GRE')
 #print(opt_model)
