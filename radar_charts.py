@@ -99,7 +99,7 @@ labels = ('RMSE:'+' Res3D-ViViT(1.0,2.5)',
 legend = ax.legend(labels,
                    loc=(0.75,0.75),
                    labelspacing=0.1, 
-                   fontsize='10')
+                   fontsize='14')
 
 plt.show()
 
