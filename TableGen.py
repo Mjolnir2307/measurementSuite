@@ -126,7 +126,7 @@ embedding_list_tiny = ['./Embeddings/DGBQA_CGID_Res3D-ViViT_pt5-1_Tiny.npz',
 dataset_list_tiny = ['Tiny']*12
 
 
-dataset_curr = 'Tiny'
+dataset_curr = 'Soli'
 
 if(dataset_curr == 'Soli'):
     y_dev = np.load('./Embeddings/y_dev_DeltaDistance_SOLI.npz')['arr_0']
@@ -156,8 +156,8 @@ if(dataset_curr == 'Tiny'):
     eer_values = list(eer_values)
 
 ##### Model selection and prediction
-model = select_model(embedding_list_tiny,
-                     dataset_list_tiny,
+model = select_model(embedding_list_soli,
+                     dataset_list_soli,
                      args.metric)
 print(model)
 
