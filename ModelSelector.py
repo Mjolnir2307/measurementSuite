@@ -127,6 +127,11 @@ def get_val(embedding,
         
         if(measure_req == 'RPP'):
             return compute_RPP(dgbqa_score,e_prime,G_total)
+
+        if(measure_req == 'relEnt'):
+            beta = 0.75
+            C_I, C_D = CGID_Score_Calculator(embedding,y_dev)
+            return acceptance_score(dgbqa_score,e_prime,G_total,False,True)**np.exp(-beta*C_D)
         
     if(mode == 'full'): # returns all nine metrics
         nu = 1
@@ -285,7 +290,7 @@ def select_model(embedding_list,
                              var)
 
     ##### Optimal selection
-    if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*','corr','DCG','ERR','U','infAp','NegRel','RPP']):
+    if(var in ['R','Ar','ArCd','Ar_psi','Cd_psi','Ar*','corr','DCG','ERR','U','infAp','NegRel','RPP','relEnt']):
         opt_model = embedding_list[int(np.argmax(measure_val))]
     else:
         opt_model = embedding_list[int(np.argmin(measure_val))]
