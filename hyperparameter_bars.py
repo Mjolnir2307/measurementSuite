@@ -76,14 +76,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\kappa$\n(a) Soli: $\\kappa$",fontsize=10)            
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax2):          
             nar_values = []
@@ -101,14 +101,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\beta$\n(b) Soli: $\\beta$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax3):          
             nar_values = []
@@ -126,14 +126,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\lambda$\n(c) Soli: $\\lambda$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax4):          
             nar_values = []
@@ -151,14 +151,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=hyp_val_curr))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\nu$\n(d) Soli: $\\nu$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
     if(ax == ax5 or ax == ax6 or ax == ax7 or ax == ax8): 
 
@@ -166,7 +166,7 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                   './Embeddings/Test/DGBQA_CGID_Res3D-MF_1-pt5_HandLogin.npz',
                   './Embeddings/MS_TPN_1pt5-1_HandLogin.npz',
                   './Embeddings/MS_TAM_1-2pt5_HandLogin.npz',
-                  './Embeddings/MS_MViT_1-pt5_HandLogin.npz']
+                  './Embeddings/MS_MViT_1-1pt5_HandLogin.npz']
         
         y_dev_path = './Embeddings/y_dev_DGBQA_Seen_HandLogin.npz'
         y_dev_id_path = './Embeddings/y_dev_id_DGBQA_Seen_HandLogin.npz'
@@ -188,14 +188,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\kappa$\n(e) HandLogin: $\\kappa$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax6):
             nar_values = []
@@ -213,14 +213,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\beta$\n(f) HandLogin: $\\beta$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
         
         if(ax == ax7):
             nar_values = []
@@ -238,14 +238,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\lambda$\n(g) HandLogin: $\\lambda$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax8):
             nar_values = []
@@ -263,14 +263,14 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=hyp_val_curr))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TPN',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,3],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,4],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TPN',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,3],label='TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,4],label='MViT',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\nu$\n(h) HandLogin: $\\nu$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
     if(ax == ax9 or ax == ax10 or ax == ax11 or ax == ax12): 
 
@@ -305,12 +305,12 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TAM',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\kappa$\n(i) TinyRadar: $\\kappa$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax10):
             nar_values = []
@@ -328,12 +328,12 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TAM',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\beta$\n(j) TinyRadar: $\\beta$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax11):
             nar_values = []
@@ -351,12 +351,12 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=1))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TAM',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\lambda$\n(k) TinyRadar: $\\lambda$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
         if(ax == ax12):
             nar_values = []
@@ -374,11 +374,11 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10, ax11, ax12]:
                               nu=hyp_val_curr))    
             nar_values = np.array(nar_values) # shape -> (num_hyp,num_models)
 
-            ax.plot(hyp_val,nar_values[:,0],label='Res3D-ViViT',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,1],label='Res3D-MF',linewidth=3,marker='o',markersize=8)
-            ax.plot(hyp_val,nar_values[:,2],label='Res3D-TAM',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,0],label='ViViT',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,1],label='MF',linewidth=3,marker='o',markersize=8)
+            ax.plot(hyp_val,nar_values[:,2],label='TAM',linewidth=3,marker='o',markersize=8)
             ax.legend(frameon=True,fontsize=8)
             ax.set_xlabel("$\\nu$\n(l) TinyRadar: $\\nu$",fontsize=10)     
-            ax.set_ylabel('$nAr^{*}(\Delta)$',fontsize=12)
+            ax.set_ylabel('$nA_r^{*}(\Delta)$',fontsize=12)
 
 plt.show()
