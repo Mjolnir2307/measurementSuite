@@ -1,4 +1,7 @@
 # Advanced Acceptane Score: A Holistic Measure for Gesture Biometric Quantification
+
+![alt text](https://github.com/Mjolnir2307/measurementSuite/blob/main/MS_Comp_Radar.jpg "Comparison of the proposed $A_{r}^{*}$ with existing measures. The figure highlights that our proposed measures fulfills all the design criteria optimally.")
+
 Abstract: Quantifying biometric characteristics of hand gestures is essential for discovering novel biometric traits. It involves arriving at fitness scores from a gesture- and identity-aware feature space. However, evaluating the quality of these scores remains an open problem. Existing biometric literature relies on assessing per-sample error rates which requires gestures to be categorized with respect to biometric characteristics and thus are not compatible with the estimated biometric characteristics. In this work, we present an exhaustive set of task-specific evaluation measures. First, we identify ranking order as the primary basis for evaluation. Next, we consider rewards for high scores for high-ranked gestures and low scores for low-ranked gestures. %We refer this as the relevance.
 We also quantify correspondence between the trends of output and ground truth scores. Finally, we account for disentanglement between identity features of gestures as a discounting factor. 
 Finally, these are combined using appropriate weights resulting in what is referred to as the \textbf{\texttt{advanced acceptance score}} ($A_r^*$). 
@@ -80,4 +83,5 @@ psi = rankDev(biometricParams,
               groundTruth,
               G=numGestures)
 ```
+
 
