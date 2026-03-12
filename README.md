@@ -1,27 +1,15 @@
-# biomQuant
+# Advanced Acceptane Score: A Holistic Measure for Gesture Biometric Quantification
+Abstract: Quantifying biometric characteristics of hand gestures is essential for discovering novel biometric traits. It involves arriving at fitness scores from a gesture- and identity-aware feature space. However, evaluating the quality of these scores remains an open problem. Existing biometric literature relies on assessing per-sample error rates which requires gestures to be categorized with respect to biometric characteristics and thus are not compatible with the estimated biometric characteristics. In this work, we present an exhaustive set of task-specific evaluation measures. First, we identify ranking order as the primary basis for evaluation. Next, we consider rewards for high scores for high-ranked gestures and low scores for low-ranked gestures. %We refer this as the relevance.
+We also quantify correspondence between the trends of output and ground truth scores. Finally, we account for disentanglement between identity features of gestures as a discounting factor. 
+Finally, these are combined using appropriate weights resulting in what is referred to as the \textbf{\texttt{advanced acceptance score}} ($A_r^*$). 
+This can serve as a standalone measure for holistic evaluation. To assess the effectiveness of the proposed \textbf{\texttt{advanced acceptance score}}, we perform extensive experimentation over three datasets and five state-of-the-art (SOTA) models. Results show that the optimal score selected with our measure is more holistic than other existing measures. Furthermore, we conduct exhaustive ablation studies to demonstrate the reliability and sensitivity of this score to individual measures based on the chosen weights.
 
-A package consisting of evaluation measures for gesture biometric quantification.
-
-This package provide four measures:
-
+We propose four measures and combine them with adequate weights in the advanced acceptance score.
 1. Rank deviation ($\hat{r}$)
 2. Relevance ($\mathcal{R}$)
 3. Trend match distance ($\Psi$)
 4. ICGD Score ($C_d$)
 
-We combine these in advanced acceptance score
-
-${A_r}^*~=~\frac{\sum_{j=1}^{G}\Bigl( \frac{2^{\lambda\mathcal{R}_j}}{\exp(\kappa*(r_{j}^{\Delta} - r_{j}^{\hat{e}} ))}\Bigr)}{\sqrt{\log_2(2+\nu\Psi)}}*{\exp(-\beta C_d)}$
-
-Here, $G$ is the number of gestures. While $r_{j}^{\Delta}$ and $r_{j}^{\hat{e}}$ denote ranks of the $j^{th}$ gesture wrt the estimated biometric estimates and the ground truth respectively. $\lambda,~\kappa,~\nu,~\text{and}~\beta$ are the scaling factors.
-
-We further normalize this into $nA_r^*(\Delta)$. Mathematically, 
-
-$nA_r^*(\Delta)=\frac{A_r^{*}(\Delta)}{A_r^{*}(\hat{e})}$
-
-Where, $A_r^*(\Delta)$ and $A_r^*(\hat{e})$ represents $A_r^*$ values for the output DGBQA scores and ground truth, i.e.,
-
-$A_r^*(\hat{e})=\sum_{j=1}^{G}2^{\lambda \Bigl[ \gamma\Bigl({\frac{G-{r_{j}^{\hat{e}}}+1}{G}\Bigr){\hat{e}\left[r_{j}^{\hat{e}}\right]}}+\Bigl(\frac{r_{j}^{\hat{e}}}{G}\Bigr)\Bigl(1-\hat{e}\left[r_{j}^{\hat{e}}\right]\Bigr) \Bigr]}$
 
 ## Requirements
 
@@ -29,6 +17,7 @@ $A_r^*(\hat{e})=\sum_{j=1}^{G}2^{\lambda \Bigl[ \gamma\Bigl({\frac{G-{r_{j}^{\ha
 2. sckit-learn
 3. scipy
 4. tensorflow $\geq$ 2.8.0
+5. biomQuant
 
 ## How to use
 
@@ -91,3 +80,4 @@ psi = rankDev(biometricParams,
               groundTruth,
               G=numGestures)
 ```
+
