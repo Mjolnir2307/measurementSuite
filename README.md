@@ -13,6 +13,7 @@ We propose four measures and combine them with adequate weights in the advanced 
 3. Trend match distance ($\Psi$)
 4. ICGD Score ($C_d$)
 
+![alt text](https://github.com/Mjolnir2307/measurementSuite/blob/main/MS_PatternMatch.png "The trend match distance")
 
 ## Requirements
 
@@ -83,5 +84,6 @@ psi = rankDev(biometricParams,
               groundTruth,
               G=numGestures)
 ```
+
 
 
