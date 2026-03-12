@@ -87,7 +87,8 @@ psi = rankDev(biometricParams,
 
 ## Verification 
 
-We have provided ```embeddings``` and ```labels``` in ```./Embeddings```. One can use them to verify reported results.
+We have provided ```embeddings``` and ```labels``` in ```./Embeddings```. One can use them to verify the reported results.
+
 
 
 
